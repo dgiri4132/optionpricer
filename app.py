@@ -21,8 +21,8 @@ purchase_price=st.sidebar.number_input('Purchase Price', value=10.0)
 call_flag=(call=='Call')
 price=binomial_price(S,K,T,r,sigma,steps,call=call_flag,american=american,q=q)
 st.success(f"The {('American' if american else 'European')} {call} Option Price is: **${price:.2f}**")
-S_range=np.linspace(S*0.8,S*1.2,25)
-sigma_range=np.linspace(sigma*0.5,sigma*1.5,25)
+S_range=np.linspace(S*0.85,S*1.15,12)
+sigma_range=np.linspace(sigma*0.7,sigma*1.3,12)
 prices=np.zeros((len(S_range), len(sigma_range)))
 pnl=np.zeros_like(prices)
 for i, S_i in enumerate(S_range):
@@ -38,14 +38,14 @@ if display_mode=='Heatmap':
     with col1:
         st.subheader('Option Value Heatmap')
         fig, ax=plt.subplots(figsize=(6,5))
-        sns.heatmap(df_prices, cmap='coolwarm', ax=ax)
+        sns.heatmap(df_prices, cmap='RdYlGn', ax=ax, linewidths=0.5, cbar_kws={'label':'Option Value($)'})
         plt.xlabel('Volatility (σ)')
         plt.ylabel('Stock Price (S)')
         st.pyplot(fig)
     with col2:
         st.subheader('P&L Heatmap ')
         fig, ax=plt.subplots(figsize=(6,5))
-        sns.heatmap(df_pnl, cmap='RdYlGn', center=0, ax=ax)
+        sns.heatmap(df_pnl, cmap='RdYlGn', center=0, ax=ax, linewidths=0.5, cbar_kws={'label':'Profit/Loss ($)'})
         plt.xlabel('Volatility(σ)')
         plt.ylabel('Stock Price(S)')
         st.pyplot(fig)
@@ -56,10 +56,11 @@ elif display_mode == '3D Surface':
         X, Y =np.meshgrid(df_prices.columns, df_prices.index)
         fig=plt.figure(figsize=(6,5))
         ax=fig.add_subplot(111, projection='3d')
-        ax.plot_surface(X,Y, df_prices.values, cmap='coolwarm')
+        surf=ax.plot_surface(X,Y, df_prices.values, cmap='RdYlGn', edgecolor='none')
         ax.set_xlabel('Volatility(σ)')
         ax.set_ylabel('Stock Price (S)')
         ax.set_zlabel('Option Value')
+        fig.colorbar(surf, ax=ax, shrink=0.6, aspect=10, label='Option Value in USD$')
         st.pyplot(fig)
     with col2:
         st.subheader('P&L 3D Surface')
@@ -74,7 +75,7 @@ elif display_mode == '3D Surface':
 else:
     with col1:
         st.subheader('Option Value Table')
-        st.dataframe(df_prices.style.background_gradient(cmap='coolwarm'))
+        st.dataframe(df_prices.style.background_gradient(cmap='RdYlGn', axis=None))
     with col2:
         st.subheader('P&L Table')
-        st.dataframe(df_pnl.style.background_gradient(cmap='RdYlGn'))
+        st.dataframe(df_pnl.style.background_gradient(cmap='RdYlGn', axis = None))
