@@ -1,10 +1,40 @@
-# Option Pricer
-This project implements a Binomial Option Pricing Model in Python for both European and American call and put options.
-# Overview
-The Binomial Option Pricing Model uses a discrete-time algorithm to estimate the fair price of an option.
-At each and every step, the stock price can move up or down with probability which is derived from volatility and interst rates.
-Backward induction is used to compute the option's value at each node.
-# How it works
-The main function is :
-Python
-binomial_price(S,K,T,r,sigma,steps=500,call=True, american=False,q=0.0)
+# Black-Scholes Binomial Option Pricer
+- This project is an interactive OPtion Pricing Web Appbuilt with Streamlit, implementing a Binomial Model to calcualte option values based on user-specific parameters such as volatility, strike price, time to maturity, and risk-free rate.
+- As a add-on it also includes a MySQL integration for structured data collection and analysis of option parameters allowing users to store input-output data from each calculation for further financial modeling.
+# Features
+- Interactive Mode
+  - Dynamically price options using user input.
+  - Visualize option values and profit/loss via heatmaps or 3D surfaces.
+  - Compare how volatility and stock price impact option value.
+
+- Data Collection Mode
+  - Compute option values and store results in a MySQL database.
+  - Persist visualization even after saving (via `st.session_state`).
+  - Supports exporting results to database for historical tracking.
+
+- Visual Outputs
+  - Heatmap of option values and P&L
+  - 3D surface plots (option value & P&L)
+  - Data tables with color gradients
+# Mathematical Model
+The app implements a binomial tree approach to the Black Scholes option pricing model
+# Setup Instruction
+- Clone the repository
+```bash
+git clone https://github.com/dgiri4132/optionpricer.git
+cd optionpricer
+
+-Create and activate a virtual environment
+python3 -m venv .venv
+source .venv/bin/activate        
+.venv\Scripts\activate 
+
+- Install dependencies
+pip install -r requirements.txt
+
+- Initialize the MySQL databse
+  mysql -u root -p < database.sql
+  
+- Run the Streamlit app
+  streamlit run app.py
+  ```
