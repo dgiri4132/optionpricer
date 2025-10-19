@@ -23,18 +23,24 @@ The app implements a binomial tree approach to the Black Scholes option pricing 
 ```bash
 git clone https://github.com/dgiri4132/optionpricer.git
 cd optionpricer
+```
 
 -Create and activate a virtual environment
+```bash
 python3 -m venv .venv
 source .venv/bin/activate        
 .venv\Scripts\activate 
-
+```
 - Install dependencies
+```bash
 pip install -r requirements.txt
-
+```
 - Initialize the MySQL databse
+```bash
   mysql -u root -p < database.sql
-  
+```
 - Run the Streamlit app
+```bash
   streamlit run app.py
-  ```
+```
+
