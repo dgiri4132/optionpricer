@@ -1,6 +1,8 @@
 import numpy as np
+# Black-Scholes Binomial Option Pricing Function
 def binomial_price(S,K,T,r,sigma, steps=500, call=True, american=False, q=0.0):
     S,K,T,r, sigma,q=map(float,(S,K,T,r,sigma,q))
+    # Handle edge cases
     if steps<1 or T<=0 or sigma <=0:
         payoff=max(0.0,(S-K) if call else (K-S))
         return payoff
@@ -12,8 +14,10 @@ def binomial_price(S,K,T,r,sigma, steps=500, call=True, american=False, q=0.0):
     i=np.arange(steps+1)
     S_T=S*(u**(steps-i))*(d**i)
     V=np.maximum(S_T-K,0.0) if call else np.maximum(K-S_T,0.0)
+    # Backward induction
     for n in range(steps-1,-1,-1):
         V=disc*(q_rn*V[:-1]+(1.0-q_rn)*V[1:])
+        # Early exercise for American options
         if american:
             i=np.arange(n+1)
             S_n=S*(u**(n-i))*(d**i)
