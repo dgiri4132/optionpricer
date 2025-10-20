@@ -1,4 +1,6 @@
 # Black-Scholes Binomial Option Pricer
+![App Demo](demo.gif)
+
 - This project is an interactive OPtion Pricing Web Appbuilt with Streamlit, implementing a Binomial Model to calcualte option values based on user-specific parameters such as volatility, strike price, time to maturity, and risk-free rate.
 - As a add-on it also includes a MySQL integration for structured data collection and analysis of option parameters allowing users to store input-output data from each calculation for further financial modeling.
 # Features
