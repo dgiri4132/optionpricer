@@ -1,5 +1,7 @@
+--Create database and tables for option pricer application
 CREATE DATABASE option_pricer_db;
 USE option_pricer_db;
+--Store calculation inputs and outputs
 CREATE TABLE calculation_input(
     calculationInputId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     stock_price DECIMAL(18,6) NOT NULL,
@@ -15,7 +17,7 @@ CREATE TABLE calculation_input(
 );
 CREATE TABLE calculation_output (
     calculationOutputId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    calcuationInputId INT NOT NULL,
+    calculationInputId INT NOT NULL,
     volatility_shock DECIMAL(18,9),
     stock_price_shock DECIMAL(18,6),
     option_price DECIMAL(18,9),
